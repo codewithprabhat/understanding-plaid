@@ -1,9 +1,6 @@
 # understanding-plaid
 
 ## Installation
-```
-npm install
-```
  ```
 cd client/
 ```
