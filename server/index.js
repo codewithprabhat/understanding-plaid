@@ -92,9 +92,8 @@ app.post("/api/auth", async (req, res) => {
   };
   try {
     const response = await plaidClient.authGet(plaidRequest);
-    const accountData = response.data.accounts;
-    const numbers = response.data.numbers;
-    res.json({ accountData, numbers });
+    const authData = response.data;
+    res.json({ authData });
   } catch (error) {
     // handle error
     res.status(500).json(error);

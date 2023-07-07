@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { useBankingInfoState } from "../provider/BankingInfoProvider";
 import { usePlaidLink } from "react-plaid-link";
 import { useNavigate } from "react-router-dom";
@@ -14,7 +14,10 @@ const BankInfo = () => {
     updateLinkToken,
     setPublicToken,
     setMetadata,
+    fetchUpdateToken,
   } = useBankingInfoState();
+
+  const buttonRef = useRef(null);
 
   const navigate = useNavigate();
 
@@ -37,6 +40,14 @@ const BankInfo = () => {
     onEvent: (eventName, metadata) => {},
   });
 
+  useEffect(() => {
+    if (updateLinkToken) {
+      setTimeout(() => {
+        buttonRef.current.click();
+      }, 2000);
+    }
+  }, [updateLinkToken]);
+
   return (
     <div>
       <div className="container">
@@ -47,8 +58,17 @@ const BankInfo = () => {
           <h1>Banking Information</h1>
         </div>
 
-        <button className="button" onClick={() => open()}>
+        <button
+          style={{ display: "none" }}
+          ref={buttonRef}
+          className="button"
+          onClick={() => open()}
+        >
           Update Bank Account
+        </button>
+
+        <button className="button" onClick={fetchUpdateToken}>
+          Edit Bank Account
         </button>
         <div className="Account">
           <h3>Account Number</h3>

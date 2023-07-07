@@ -37,7 +37,7 @@ export const BankingInfoProvider = ({ children }) => {
       setAccessToken(accessToken);
       const auth = await axios.post("/api/auth", { accessToken });
       console.log(auth.data);
-      setAccount(auth.data.accountData);
+      setAccount(auth.data);
     }
 
     if (publicToken) {
@@ -45,19 +45,27 @@ export const BankingInfoProvider = ({ children }) => {
     }
   }, [publicToken]);
 
-  useEffect(() => {
-    async function fetchUpdateToken() {
-      const response = await axios.post("/api/update_link_token", {
-        accessToken,
-      });
-      const data = response.data;
-      setUpdateLinkToken(data.link_token);
-    }
+  // useEffect(() => {
+  //   async function fetchUpdateToken() {
+  //     const response = await axios.post("/api/update_link_token", {
+  //       accessToken,
+  //     });
+  //     const data = response.data;
+  //     setUpdateLinkToken(data.link_token);
+  //   }
 
-    if (accessToken && account) {
-      fetchUpdateToken();
-    }
-  }, [accessToken, account]);
+  //   if (accessToken && account) {
+  //     fetchUpdateToken();
+  //   }
+  // }, [accessToken, account]);
+
+  async function fetchUpdateToken() {
+    const response = await axios.post("/api/update_link_token", {
+      accessToken,
+    });
+    const data = response.data;
+    setUpdateLinkToken(data.link_token);
+  }
 
   const providerValue = {
     linkToken,
@@ -74,6 +82,7 @@ export const BankingInfoProvider = ({ children }) => {
     setAccessToken,
     setAccount,
     setUpdateLinkToken,
+    fetchUpdateToken,
   };
   return (
     <BankingInfoContext.Provider value={providerValue}>
