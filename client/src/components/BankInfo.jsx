@@ -15,6 +15,8 @@ const BankInfo = () => {
     setPublicToken,
     setMetadata,
     fetchUpdateToken,
+    error,
+    setError,
   } = useBankingInfoState();
 
   const buttonRef = useRef(null);
@@ -48,6 +50,14 @@ const BankInfo = () => {
     }
   }, [updateLinkToken]);
 
+  useEffect(() => {
+    if (error) {
+      setTimeout(() => {
+        setError(false);
+      }, 4000);
+    }
+  }, [error]);
+
   return (
     <div>
       <div className="container">
@@ -57,7 +67,15 @@ const BankInfo = () => {
           </button>
           <h1>Banking Information</h1>
         </div>
-
+        {error && (
+          <div class="alert">
+            <span class="alert-message">
+              There was an error processing your request. Please try again
+              later.
+            </span>
+            <button class="alert-close">&times;</button>
+          </div>
+        )}
         <button
           style={{ display: "none" }}
           ref={buttonRef}

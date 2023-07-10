@@ -86,3 +86,27 @@ button {
 .backButton {
 	margin-right: 2rem;
 }
+
+.alert {
+    width: 50%;
+    padding: 10px;
+    background-color: #FF4136;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1rem 0;
+}
+  
+  .alert-message {
+	flex-grow: 1;
+	margin-right: 10px;
+  }
+  
+  .alert-close {
+	border: none;
+	background-color: transparent;
+	color: white;
+	font-size: 20px;
+	cursor: pointer;
+  }

@@ -85,17 +85,19 @@ app.post(
   }
 );
 
-app.post("/api/auth", async (req, res) => {
+app.post("/api/account", async (req, res) => {
   const accessToken = req.body.accessToken;
   const plaidRequest = {
     access_token: accessToken,
   };
   try {
-    const response = await plaidClient.authGet(plaidRequest);
+    const response = await plaidClient.accountsGet(plaidRequest);
+    //const response = await plaidClient.authGet(plaidRequest);
     const authData = response.data;
     res.json({ authData });
   } catch (error) {
     // handle error
+    console.log(error);
     res.status(500).json(error);
   }
 });
